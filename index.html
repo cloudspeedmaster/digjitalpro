@@ -126,8 +126,12 @@
     <!-- Navigation -->
     <nav class="bg-white shadow-md fixed w-full z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Logo Section - UPDATED HERE -->
             <div class="flex items-center">
-                <div class="text-3xl font-bold text-gradient">DigiAlb</div>
+                <a href="#kryefaqja" class="flex items-center" aria-label="DigiAlb Marketing Homepage">
+                    <!-- Your logo image with the correct path -->
+                    <img src="images/digjital-pro-logo.png" alt="DigiAlb Marketing Logo" class="h-10 md:h-12 w-auto">
+                </a>
             </div>
             
             <!-- Desktop Menu -->
@@ -664,7 +668,7 @@
             
             <div class="border-t border-indigo-400 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="text-indigo-100 mb-4 md:mb-0">&copy; 2023 DigiAlb Marketing. Të gjitha të drejtat e rezervuara.</p>
+                    <p class="text-indigo-100 mb-4 md:mb-0">© 2023 DigiAlb Marketing. Të gjitha të drejtat e rezervuara.</p>
                     <div class="flex space-x-4">
                         <a href="#" class="text-indigo-100 hover:text-white transition duration-300">
                             <i class="fab fa-facebook-f"></i>
@@ -704,7 +708,7 @@
                 
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 80, // Adjust for fixed header
                         behavior: 'smooth'
                     });
                     
@@ -744,7 +748,7 @@
             countElements.forEach(element => {
                 const target = parseInt(element.getAttribute('data-target'));
                 const duration = 2000; // 2 seconds
-                const step = target / (duration / 16); // 60fps
+                const step = target / (duration / 16); // ~60 frames per second
                 let current = 0;
                 
                 const counter = setInterval(() => {
@@ -755,7 +759,7 @@
                     } else {
                         element.textContent = Math.floor(current);
                     }
-                }, 16);
+                }, 16); // Update every ~16ms for 60fps
             });
         }
         
@@ -764,7 +768,7 @@
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
                 startCounting();
-                observer.disconnect();
+                observer.disconnect(); // Stop observing after animation starts
             }
         });
         
@@ -785,40 +789,40 @@
             
             // In a real implementation, you would send this data to a server
             // For demo purposes, we'll just show an alert
-            alert(`Faleminderit ${name}! Mesazhi juaj u dërgua me sukses. Do t'ju kontaktojmë së shpejti.`);
+            alert(`Faleminderit ${name}! Mesazhi juaj u dërdua me sukses. Do t'ju kontaktojmë së shpejti.`);
             
             // Reset form
             contactForm.reset();
         });
         
-        // Active navigation link
+        // Active navigation link on scroll
         function setActiveNavLink() {
-            const sections = document.querySelectorAll('section');
+            const sections = document.querySelectorAll('section[id]'); // Select sections that have an ID
             const navLinks = document.querySelectorAll('.nav-link');
             
-            let current = '';
+            let currentActiveSectionId = '';
             
             sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
+                const sectionTop = section.offsetTop - 100; // Adjust for fixed header height
+                const sectionBottom = sectionTop + section.offsetHeight;
                 
-                if (window.pageYOffset >= sectionTop - 100) {
-                    current = section.getAttribute('id');
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionBottom) {
+                    currentActiveSectionId = section.getAttribute('id');
                 }
             });
             
             navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
+                link.classList.remove('active'); // Remove 'active' from all links
+                if (link.getAttribute('href') === `#${currentActiveSectionId}`) {
+                    link.classList.add('active'); // Add 'active' to the current section's link
                 }
             });
         }
         
         window.addEventListener('scroll', setActiveNavLink);
         
-        // Initial active link
+        // Initial active link when page loads
         setActiveNavLink();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94baf650108b42fd',t:'MTc0OTI0NDkxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
